@@ -29,9 +29,11 @@ namespace Ejercicios_UD18
         { 
             get => conexion;
             set {
-                this.conexion = value;
+                
                 try
                 {
+                    this.cerrarConexion();
+                    this.conexion = value;
                     this.conexion.Open();
                 }
                 catch (Exception e)
@@ -57,6 +59,19 @@ namespace Ejercicios_UD18
                 return false;
             }
 
+        }
+        public void cerrarConexion ()
+        {
+            try
+            {
+                this.Conexion.Close();
+                Console.WriteLine("Se cerró la conexión");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
 
     }

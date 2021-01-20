@@ -24,11 +24,12 @@ namespace Ejercicios_UD18
             switch (ejercicio)
             {
                 case "1":
-                    Ejercicio2 ej1 = new Ejercicio2();
+                    Ejercicio1 ej1 = new Ejercicio1();
                     ej1.Ejercicio();
                     break;
-                case "3":
-                    
+                case "2":
+                    Ejercicio2 ej2 = new Ejercicio2();
+                    ej2.Ejercicio();
                     break;
                 case "4":
                     

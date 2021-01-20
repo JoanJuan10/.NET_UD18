@@ -43,6 +43,8 @@ namespace Ejercicios_UD18
                 "('Articulo4',10,4)," +
                 "('Articulo5',10,5);");
 
+            tiendaInformatica.cerrarConexion();
+
         }
     }
 }

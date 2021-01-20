@@ -9,40 +9,43 @@ namespace Ejercicios_UD18
     {
         public void Ejercicio()
         {
-            Database tiendaInformatica = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
-            tiendaInformatica.ejecutarSQL("CREATE DATABASE ex1");
+            Database empleados = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
+            empleados.ejecutarSQL("CREATE DATABASE ex2");
             try
             {
-                tiendaInformatica.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex1;Persist Security Info=True;User ID=user123; Password=123");
+                empleados.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex2;Persist Security Info=True;User ID=user123; Password=123");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Fabricantes " +
-                "(Codigo INT NOT NULL IDENTITY(1, 1)," +
+            empleados.ejecutarSQL("CREATE TABLE Departamentos (" +
+                "Codigo INT NOT NULL," +
                 "Nombre NVARCHAR(100)," +
-                "CONSTRAINT pk_fabricantes PRIMARY KEY(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Articulos (" +
-                "Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "Precio INT," +
-                "Fabricante INT," +
-                "CONSTRAINT pk_articulos PRIMARY KEY(Codigo)," +
-                "CONSTRAINT fk_articulos FOREIGN KEY(Fabricante) REFERENCES Fabricantes(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Fabricantes (Nombre) VALUES " +
-                "('Fabricante1')," +
-                "('Fabricante2')," +
-                "('Fabricante3')," +
-                "('Fabricante4')," +
-                "('Fabricante5');");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Articulos (Nombre, Precio, Fabricante) VALUES " +
-                "('Articulo1',10,1)," +
-                "('Articulo2',10,2)," +
-                "('Articulo3',10,3)," +
-                "('Articulo4',10,4)," +
-                "('Articulo5',10,5);");
+                "Presupuesto INT," +
+                "CONSTRAINT pk_departamentos PRIMARY KEY(Codigo)); ");
 
+            empleados.ejecutarSQL("CREATE TABLE Empleados (" +
+                "DNI VARCHAR(8) NOT NULL," +
+                "Nombre NVARCHAR(100)," +
+                "Apellidos NVARCHAR(255)," +
+                "Departamento INT," +
+                "CONSTRAINT pk_empleados PRIMARY KEY(DNI)," +
+                "CONSTRAINT fk_empleados FOREIGN KEY(Departamento) REFERENCES Departamentos(Codigo)); ");
+
+            empleados.ejecutarSQL("INSERT INTO Departamentos (Codigo,Nombre,Presupuesto) VALUES " +
+                "(1,'Dep1',173)," +
+                "(2,'Dep2',462)," +
+                "(3,'Dep3',127)," +
+                "(4,'Dep4',165)," +
+                "(5,'Dep5',16);");
+            empleados.ejecutarSQL("INSERT INTO Empleados (DNI,Nombre,Apellidos,Departamento) VALUES " +
+                "('7491786A','Nombre1','Apellido1',1)," +
+                "('7491716A','Nombre2','Apellido2',2)," +
+                "('7491726A','Nombre3','Apellido3',3)," +
+                "('7491736A','Nombre4','Apellido4',4)," +
+                "('7491756A','Nombre5','Apellido5',5);");
+            empleados.cerrarConexion();
         }
     }
 }
