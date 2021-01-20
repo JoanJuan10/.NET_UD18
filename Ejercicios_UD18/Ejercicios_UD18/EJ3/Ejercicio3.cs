@@ -9,40 +9,44 @@ namespace Ejercicios_UD18
     {
         public void Ejercicio()
         {
-            Database tiendaInformatica = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
-            tiendaInformatica.ejecutarSQL("CREATE DATABASE ex1");
+            Database almacenes = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
+            almacenes.ejecutarSQL("CREATE DATABASE ex3");
             try
             {
-                tiendaInformatica.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex1;Persist Security Info=True;User ID=user123; Password=123");
+                almacenes.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex3;Persist Security Info=True;User ID=user123; Password=123");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Fabricantes " +
-                "(Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "CONSTRAINT pk_fabricantes PRIMARY KEY(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Articulos (" +
+            almacenes.ejecutarSQL("CREATE TABLE Almacenes (" +
                 "Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "Precio INT," +
-                "Fabricante INT," +
-                "CONSTRAINT pk_articulos PRIMARY KEY(Codigo)," +
-                "CONSTRAINT fk_articulos FOREIGN KEY(Fabricante) REFERENCES Fabricantes(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Fabricantes (Nombre) VALUES " +
-                "('Fabricante1')," +
-                "('Fabricante2')," +
-                "('Fabricante3')," +
-                "('Fabricante4')," +
-                "('Fabricante5');");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Articulos (Nombre, Precio, Fabricante) VALUES " +
-                "('Articulo1',10,1)," +
-                "('Articulo2',10,2)," +
-                "('Articulo3',10,3)," +
-                "('Articulo4',10,4)," +
-                "('Articulo5',10,5);");
+                "Lugar NVARCHAR(100)," +
+                "Capacidad INT," +
+                "CONSTRAINT pk_almacenes PRIMARY KEY(Codigo)); ");
 
+            almacenes.ejecutarSQL("CREATE TABLE Cajas (" +
+                "NumReferencia CHAR(5) NOT NULL," +
+                "Contenido NVARCHAR(100)," +
+                "Valor INT," +
+                "Almacen INT," +
+                "CONSTRAINT pk_cajas PRIMARY KEY(NumReferencia)," +
+                "CONSTRAINT fk_cajas FOREIGN KEY(Almacen) REFERENCES Almacenes(Codigo)); ");
+
+            almacenes.ejecutarSQL("INSERT INTO Almacenes (Lugar,Capacidad) VALUES " +
+                "('Lugar1',43)," +
+                "('Lugar2',17)," +
+                "('Lugar3',8)," +
+                "('Lugar4',26)," +
+                "('Lugar5',30);");
+
+            almacenes.ejecutarSQL("INSERT INTO Cajas (NumReferencia,Contenido,Valor,Almacen) VALUES " +
+                "('63HF6','Piedras',90,1)," +
+                "('69YA1','Piedras',80,2)," +
+                "('91PK9','Piedras',10,3)," +
+                "('15GP4','Piedras',100,5)," +
+                "('36PA0','Piedras',60,4);");
+            almacenes.cerrarConexion();
         }
     }
 }
