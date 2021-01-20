@@ -35,11 +35,29 @@ namespace Ejercicios_UD18
                     Ejercicio3 ej3 = new Ejercicio3();
                     ej3.Ejercicio();
                     break;
+                case "4":
+                    Ejercicio4 ej4 = new Ejercicio4();
+                    ej4.Ejercicio();
+                    break;
                 case "5":
-                    
+                    Ejercicio5 ej5 = new Ejercicio5();
+                    ej5.Ejercicio();
                     break;
                 case "6":
-                    
+                    Ejercicio6 ej6 = new Ejercicio6();
+                    ej6.Ejercicio();
+                    break;
+                case "7":
+                    Ejercicio7 ej7 = new Ejercicio7();
+                    ej7.Ejercicio();
+                    break;
+                case "8":
+                    Ejercicio8 ej8 = new Ejercicio8();
+                    ej8.Ejercicio();
+                    break;
+                case "9":
+                    Ejercicio9 ej9 = new Ejercicio9();
+                    ej9.Ejercicio();
                     break;
             }
         }

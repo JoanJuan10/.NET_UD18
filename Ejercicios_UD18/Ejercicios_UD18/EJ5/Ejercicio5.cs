@@ -9,39 +9,51 @@ namespace Ejercicios_UD18
     {
         public void Ejercicio()
         {
-            Database tiendaInformatica = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
-            tiendaInformatica.ejecutarSQL("CREATE DATABASE ex1");
+            Database directores = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
+            directores.ejecutarSQL("CREATE DATABASE ex5");
             try
             {
-                tiendaInformatica.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex1;Persist Security Info=True;User ID=user123; Password=123");
+                directores.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex5;Persist Security Info=True;User ID=user123; Password=123");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Fabricantes " +
-                "(Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "CONSTRAINT pk_fabricantes PRIMARY KEY(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Articulos (" +
-                "Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "Precio INT," +
-                "Fabricante INT," +
-                "CONSTRAINT pk_articulos PRIMARY KEY(Codigo)," +
-                "CONSTRAINT fk_articulos FOREIGN KEY(Fabricante) REFERENCES Fabricantes(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Fabricantes (Nombre) VALUES " +
-                "('Fabricante1')," +
-                "('Fabricante2')," +
-                "('Fabricante3')," +
-                "('Fabricante4')," +
-                "('Fabricante5');");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Articulos (Nombre, Precio, Fabricante) VALUES " +
-                "('Articulo1',10,1)," +
-                "('Articulo2',10,2)," +
-                "('Articulo3',10,3)," +
-                "('Articulo4',10,4)," +
-                "('Articulo5',10,5);");
+            directores.ejecutarSQL("CREATE TABLE Despachos (" +
+                "Numero INT NOT NULL," +
+                "Capacidad INT NOT NULL," +
+                "CONSTRAINT pk_despachos PRIMARY KEY(Numero)); ");
+            directores.ejecutarSQL("CREATE TABLE Directores (" +
+                "DNI VARCHAR(8) NOT NULL," +
+                "NomApels NVARCHAR(255) NOT NULL," +
+                "DNIJefe VARCHAR(8)," +
+                "Despacho INT," +
+                "CONSTRAINT pk_directores PRIMARY KEY(DNI)," +
+                "CONSTRAINT fk_directores1 FOREIGN KEY(DNIJefe) REFERENCES Directores(DNI)," +
+                "CONSTRAINT fk_directores2 FOREIGN KEY(Despacho) REFERENCES Despachos(Numero)); ");
+            directores.ejecutarSQL("INSERT INTO Despachos (Numero,Capacidad) VALUES" +
+                "(1, 10)," +
+                "(2, 13)," +
+                "(3, 4)," +
+                "(4, 7)," +
+                "(5, 14)," +
+                "(6, 11)," +
+                "(7, 9)," +
+                "(8, 4)," +
+                "(9, 6)," +
+                "(10, 16); ");
+            directores.ejecutarSQL("INSERT INTO Directores (DNI,NomApels,DNIJefe,Despacho) VALUES" +
+                "('5572941S', 'Jose Maria', NULL, 2)," +
+                "('1192545N', 'Antonio Jose', '3426411M', 6)," +
+                "('7702140V', 'Fernando Parra', NULL, 7)," +
+                "('8551191H', 'Raul Alvarez', NULL, 9)," +
+                "('0232404Z', 'Thais Garcia', NULL, 3)," +
+                "('2128238G', 'Montse Quijano', NULL, 1)," +
+                "('3426411M', 'Oriol Zahir', NULL, 6)," +
+                "('1344338P', 'Carla Gomez', NULL, 4)," +
+                "('6899928K', 'Jan Puro', '0232404Z', 10)," +
+                "('4583267K', 'Paula Serrano', NULL, 9); ");
+            directores.cerrarConexion();
 
         }
     }

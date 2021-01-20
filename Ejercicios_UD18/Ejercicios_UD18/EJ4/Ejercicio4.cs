@@ -9,39 +9,42 @@ namespace Ejercicios_UD18
     {
         public void Ejercicio()
         {
-            Database tiendaInformatica = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
-            tiendaInformatica.ejecutarSQL("CREATE DATABASE ex1");
+            Database cine = new Database("Data Source=192.168.1.53;Initial Catalog=master;Persist Security Info=True;User ID=user123;Password=123");
+            cine.ejecutarSQL("CREATE DATABASE ex4");
             try
             {
-                tiendaInformatica.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex1;Persist Security Info=True;User ID=user123; Password=123");
+                cine.Conexion = new SqlConnection("Data Source=192.168.1.53;Initial Catalog=ex4;Persist Security Info=True;User ID=user123; Password=123");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Fabricantes " +
-                "(Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "CONSTRAINT pk_fabricantes PRIMARY KEY(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("CREATE TABLE Articulos (" +
+            cine.ejecutarSQL("CREATE TABLE Peliculas (" +
                 "Codigo INT NOT NULL IDENTITY(1, 1)," +
-                "Nombre NVARCHAR(100)," +
-                "Precio INT," +
-                "Fabricante INT," +
-                "CONSTRAINT pk_articulos PRIMARY KEY(Codigo)," +
-                "CONSTRAINT fk_articulos FOREIGN KEY(Fabricante) REFERENCES Fabricantes(Codigo)); ");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Fabricantes (Nombre) VALUES " +
-                "('Fabricante1')," +
-                "('Fabricante2')," +
-                "('Fabricante3')," +
-                "('Fabricante4')," +
-                "('Fabricante5');");
-            tiendaInformatica.ejecutarSQL("INSERT INTO Articulos (Nombre, Precio, Fabricante) VALUES " +
-                "('Articulo1',10,1)," +
-                "('Articulo2',10,2)," +
-                "('Articulo3',10,3)," +
-                "('Articulo4',10,4)," +
-                "('Articulo5',10,5);");
+                "Nombre NVARCHAR(100) NOT NULL," +
+                "CalificacionEdad INT," +
+                "CONSTRAINT pk_peliculas PRIMARY KEY(Codigo)); ");
+
+            cine.ejecutarSQL("CREATE TABLE Salas (" +
+                "Codigo INT NOT NULL IDENTITY(1, 1)," +
+                "Nombre NVARCHAR(100) NOT NULL," +
+                "Pelicula INT," +
+                "CONSTRAINT pk_salas PRIMARY KEY(Codigo)," +
+                "CONSTRAINT fk_salas FOREIGN KEY(Pelicula) REFERENCES Peliculas(Codigo)); ");
+
+            cine.ejecutarSQL("INSERT INTO Peliculas (Nombre,CalificacionEdad) VALUES " +
+                "('Pelicula1',0)," +
+                "('Pelicula2',7)," +
+                "('Pelicula3',18)," +
+                "('Pelicula4',0)," +
+                "('Pelicula5',0);");
+            cine.ejecutarSQL("INSERT INTO Salas (Nombre, Pelicula) VALUES " +
+                "('Sala1',1)," +
+                "('Sala2',2)," +
+                "('Sala3',3)," +
+                "('Sala4',4)," +
+                "('Sala5',5);");
+            cine.cerrarConexion();
 
         }
     }
