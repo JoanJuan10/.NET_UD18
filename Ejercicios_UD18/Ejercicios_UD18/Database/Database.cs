@@ -35,6 +35,7 @@ namespace Ejercicios_UD18
                     this.cerrarConexion();
                     this.conexion = value;
                     this.conexion.Open();
+                    Console.WriteLine("Se renovó la conexión")
                 }
                 catch (Exception e)
                 {
